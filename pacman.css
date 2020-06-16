@@ -1,0 +1,93 @@
+@font-face {
+    font-family: pacmanFont;
+    src: url(Retro\ Gaming.ttf);
+  }
+body{
+    background-color: black;
+    display:flex;
+}
+.row{
+    margin-bottom: -4px;
+}
+    .row .empty{
+        height:40px;
+        width:40px;
+        display:inline-block;
+    }
+    .row .border{
+        height:40px;
+        width:40px;
+        display:inline-block;
+        background-color: blue;
+    }
+    .row .coin{
+        height:40px;
+        width:40px;
+        display:inline-block;
+        background-image: url(coin.gif);
+        background-position: center;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+    }
+    .row .cherry{
+        height: 40px;
+        width:40px;
+        display: inline-block;
+        background-image: url(cherry.png);
+        background-position: center;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+    }
+    .row .orange_ghost{
+        height: 40px;
+        width:40px;
+        display: inline-block;
+        background-image: url(orange_ghost.gif);
+        background-position: center;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+    }
+    .row .red_ghost{
+        height: 40px;
+        width:40px;
+        display: inline-block;
+        background-image: url(red_ghost.gif);
+        background-position: center;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+    }
+    .row .teal_ghost{
+        height: 40px;
+        width:40px;
+        display: inline-block;
+        background-image: url(teal_ghost.gif);
+        background-position: center;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+    }
+    .row .pacman{
+        height: 40px;
+        width:40px;
+        display: inline-block;
+        background-image: url(pacman.gif);
+        background-position: center;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+    }
+#sidebar{
+    margin-left: 20px;
+}
+#score{
+    margin: 0px auto;
+    color: white;
+    font-family: pacmanFont;
+}
+#lives .pacman_life{
+    height: 30px;
+    width: 30px;
+}
+#lives{
+    display: flex;
+    color: white;
+    font-family: pacmanFont;
+}
