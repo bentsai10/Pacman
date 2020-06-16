@@ -1,4 +1,4 @@
-var world = [
+var defaultWorld = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     [0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0],
     [0, 0, 0, 2, 2, 0, 0, 2, 2, 0, 0, 0],
@@ -15,6 +15,7 @@ var world = [
     [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
+var world = JSON.parse(JSON.stringify(defaultWorld));
 
 var score = 0;
 
@@ -23,6 +24,8 @@ var defaultX = 5;//starting column index for pacman
 var defaultY = 11;//starting row index for pacman
 var pacmanX = defaultX; //X variable keeping track of current column index for pacman
 var pacmanY = defaultY; //Y variable keeping track of current row index for pacman
+
+var gameStart = false;
 
 function displayWorld(){
     var output = "";
@@ -58,7 +61,6 @@ function displayWorld(){
     }
 
     document.getElementById('world').innerHTML = output;
-    console.log(output);
 }
 function displayScore(){
     document.getElementById('score').innerHTML = "<h2>Score: " + score + "</h2>";
@@ -71,13 +73,21 @@ function displayLives(){
     output+= "</h2>";
     document.getElementById('lives').innerHTML = output;
 }
+function displayStart(){
+    if (gameStart == true){
+        document.getElementById('start').style.visibility = "hidden";
+    }else{
+        document.getElementById('start').style.visibility = "visible";
+    }
+}
 displayWorld();
 displayScore();
 displayLives();
+displayStart();
 
 document.onkeydown = function (event) {
     if (event.keyCode == 37){ //left
-        if(world[pacmanY][pacmanX-1] == 0){
+        if(world[pacmanY][pacmanX-1] == 0 || gameStart == false){
         }else{
             world[pacmanY][pacmanX] = 1;
             pacmanX--;
@@ -89,8 +99,11 @@ document.onkeydown = function (event) {
             }
             else if(world[pacmanY][pacmanX] == 20 || world[pacmanY][pacmanX] == 15 || world[pacmanY][pacmanX] == 10){
                 lives--;
-                // pacmanX = defaultX;
-                // pacmanY = defaultY;
+                if (lives == 0){
+                    document.getElementById('start').innerHTML = "<h2>Game Over...Press Space to Play Again!</h2>";
+                    gameStart = false;
+                    displayStart();
+                }
             }
             world[pacmanY][pacmanX] = 100;
             displayWorld();
@@ -100,7 +113,7 @@ document.onkeydown = function (event) {
         }
         
     }else if(event.keyCode == 38){ //up
-        if(world[pacmanY-1][pacmanX] == 0){
+        if(world[pacmanY-1][pacmanX] == 0 || gameStart == false){
         }else{
             world[pacmanY][pacmanX] = 1;
             pacmanY--;
@@ -112,6 +125,11 @@ document.onkeydown = function (event) {
             }
             else if(world[pacmanY][pacmanX] == 20 || world[pacmanY][pacmanX] == 15 || world[pacmanY][pacmanX] == 10){
                 lives--;
+                if (lives == 0){
+                    document.getElementById('start').innerHTML = "<h2>Game Over...Press Space to Play Again!</h2>";
+                    gameStart = false;
+                    displayStart();
+                }
             }
             world[pacmanY][pacmanX] = 100;
             displayWorld();
@@ -121,7 +139,7 @@ document.onkeydown = function (event) {
         }
     }
     else if(event.keyCode == 39){//right
-        if(world[pacmanY][pacmanX+1] == 0){
+        if(world[pacmanY][pacmanX+1] == 0|| gameStart == false){
         }else{
             world[pacmanY][pacmanX] = 1;
             pacmanX++;
@@ -133,6 +151,11 @@ document.onkeydown = function (event) {
             }
             else if(world[pacmanY][pacmanX] == 20 || world[pacmanY][pacmanX] == 15 || world[pacmanY][pacmanX] == 10){
                 lives--;
+                if (lives == 0){
+                    document.getElementById('start').innerHTML = "<h2>Game Over...Press Space to Play Again!</h2>";
+                    gameStart = false;
+                    displayStart();
+                }
             }
             world[pacmanY][pacmanX] = 100;
             displayWorld();
@@ -142,7 +165,7 @@ document.onkeydown = function (event) {
         }
     }
     else if (event.keyCode == 40){//down
-        if(world[pacmanY+1][pacmanX] == 0){
+        if(world[pacmanY+1][pacmanX] == 0|| gameStart == false){
         }else{
             world[pacmanY][pacmanX] = 1;
             pacmanY++;
@@ -154,6 +177,11 @@ document.onkeydown = function (event) {
             }
             else if(world[pacmanY][pacmanX] == 20 || world[pacmanY][pacmanX] == 15 || world[pacmanY][pacmanX] == 10){
                 lives--;
+                if (lives == 0){
+                    document.getElementById('start').innerHTML = "<h2>Game Over...Press Space to Play Again!</h2>";
+                    gameStart = false;
+                    displayStart();
+                }
             }
             world[pacmanY][pacmanX] = 100;
             displayWorld();
@@ -163,6 +191,18 @@ document.onkeydown = function (event) {
         }
     }
     else if (event.keyCode == 32){ //space
-
+        console.log(gameStart);
+        if(gameStart == false){
+            gameStart = true;
+            world = JSON.parse(JSON.stringify(defaultWorld));
+            pacmanX = defaultX;
+            pacmanY = defaultY;
+            lives = 3;
+            score = 0;
+            displayStart();
+            displayScore();
+            displayLives();
+            displayWorld();
+        }   
     }
 }
